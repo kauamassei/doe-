@@ -1,0 +1,9 @@
+/* Acréscimos da versão React; o style.css original fica intacto. */
+.carregando { color: var(--texto-suave); }
+.botao-tabela {
+  padding: 6px 12px; border: 1px solid #e3b7bf; border-radius: 6px;
+  background: var(--branco); color: var(--vermelho-escuro);
+  font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer;
+}
+.botao-tabela:hover { background: var(--rosa-claro); }
+.botao:disabled { opacity: .6; cursor: not-allowed; transform: none; }
