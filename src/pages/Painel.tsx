@@ -48,7 +48,7 @@ export default function Painel() {
     if (!window.confirm('Tem certeza de que deseja cancelar este agendamento?')) return;
     try {
       await agendaService.cancelar(id);
-      setAgendamentos((atual) => atual.filter((a) => a.id !== id));
+      setAgendamentos(await agendaService.listar());
       setMensagem({ texto: 'Agendamento cancelado.', tipo: 'sucesso' });
     } catch (err) {
       const texto = err instanceof ApiError ? err.message : 'Não foi possível cancelar o agendamento.';
@@ -126,12 +126,17 @@ export default function Painel() {
                   <tr key={a.id}>
                     <td>{a.doador?.nome ?? '—'}</td>
                     <td>{(a.unidadeColeta ?? a.unidade)?.nome ?? '—'}</td>
-                    <td>{formatarData(a.dataHora)}</td>
+                    <td>{formatarData(a.dataAgenda)}</td>
                     <td>{a.status ?? '—'}</td>
                     <td>
-                      <button type="button" className="botao-tabela" onClick={() => cancelar(a.id)}>
-                        Cancelar
-                      </button>
+                    <button
+  type="button"
+  className="botao-tabela"
+  onClick={() => cancelar(a.id)}
+  disabled={a.status === 'CANCELADO'}
+>
+  Cancelar
+</button>
                     </td>
                   </tr>
                 ))

@@ -25,6 +25,11 @@ export default function Agendamento() {
 
   const minimo = useMemo(dataMinima, []);
 
+  function mostrar(nova: Mensagem) {
+    setMensagem(nova);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   useEffect(() => {
     unidadeService
       .listar()
@@ -40,11 +45,11 @@ export default function Agendamento() {
     e.preventDefault();
 
     if (cpf.replace(/\D/g, '').length !== 11) {
-      setMensagem({ texto: 'Digite o CPF usado no cadastro.', tipo: 'erro' });
+      mostrar({ texto: 'Digite o CPF usado no cadastro.', tipo: 'erro' });
       return;
     }
     if (!idUnidade || !dataHora || new Date(dataHora) <= new Date()) {
-      setMensagem({ texto: 'Escolha uma unidade e uma data futura.', tipo: 'erro' });
+      mostrar({ texto: 'Escolha uma unidade e uma data futura.', tipo: 'erro' });
       return;
     }
 
@@ -52,23 +57,23 @@ export default function Agendamento() {
     try {
       const doador = await doadorService.buscarPorCpf(cpf);
       if (!doador || doador.id === undefined) {
-        setMensagem({ texto: 'Não encontramos esse CPF. Faça seu cadastro na página de cadastro.', tipo: 'erro' });
+        mostrar({ texto: 'Não encontramos esse CPF. Faça seu cadastro na página de cadastro.', tipo: 'erro' });
         return;
       }
 
       await doadorService.agendar(doador.id, Number(idUnidade), {
-        dataHora,
+        dataAgenda: dataHora,
         observacoes: observacoes.trim(),
       });
 
-      setMensagem({ texto: 'Agendamento registrado com sucesso!', tipo: 'sucesso' });
+      mostrar({ texto: 'Agendamento registrado com sucesso!', tipo: 'sucesso' });
       setCpf('');
       setIdUnidade('');
       setDataHora('');
       setObservacoes('');
     } catch (err) {
       const texto = err instanceof ApiError ? err.message : 'Não foi possível registrar o agendamento.';
-      setMensagem({ texto, tipo: 'erro' });
+      mostrar({ texto, tipo: 'erro' });
     } finally {
       setEnviando(false);
     }

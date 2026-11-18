@@ -32,6 +32,11 @@ export default function Cadastro() {
   const [mensagem, setMensagem] = useState<Mensagem | null>(null);
   const [enviando, setEnviando] = useState(false);
 
+  function mostrar(nova: Mensagem) {
+    setMensagem(nova);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function atualizar(campo: Campo, transformar?: (v: string) => string) {
     return (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const valor = transformar ? transformar(e.target.value) : e.target.value;
@@ -56,7 +61,7 @@ export default function Cadastro() {
 
     const erro = validar();
     if (erro) {
-      setMensagem({ texto: erro, tipo: 'erro' });
+      mostrar({ texto: erro, tipo: 'erro' });
       return;
     }
 
@@ -65,7 +70,7 @@ export default function Cadastro() {
       await doadorService.criar({
         nome: form.nome.trim(),
         cpf: form.cpf.replace(/\D/g, ''),
-        nascimento: form.nascimento,
+        dataNascimento: form.nascimento,
         email: form.email.trim(),
         telefone: form.telefone.trim(),
         sexo: form.sexo,
@@ -74,12 +79,12 @@ export default function Cadastro() {
         endereco: form.endereco.trim(),
         observacoes: form.observacoes.trim(),
       });
-      setMensagem({ texto: 'Cadastro realizado! Obrigado por fazer parte do Doe+.', tipo: 'sucesso' });
+      mostrar({ texto: 'Cadastro realizado! Obrigado por fazer parte do Doe+.', tipo: 'sucesso' });
       setForm(FORM_VAZIO);
       setAceitouTermos(false);
     } catch (err) {
       const texto = err instanceof ApiError ? err.message : 'Não foi possível concluir o cadastro.';
-      setMensagem({ texto, tipo: 'erro' });
+      mostrar({ texto, tipo: 'erro' });
     } finally {
       setEnviando(false);
     }

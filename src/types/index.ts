@@ -4,7 +4,7 @@ export interface Doador {
   id?: number;
   nome: string;
   cpf: string;
-  nascimento: string; // yyyy-MM-dd
+  dataNascimento: string; // yyyy-MM-dd
   email: string;
   telefone: string;
   sexo?: string;
@@ -22,13 +22,13 @@ export interface UnidadeColeta {
 }
 
 export interface NovoAgendamento {
-  dataHora: string; // yyyy-MM-ddTHH:mm
+  dataAgenda: string; // yyyy-MM-ddTHH:mm
   observacoes?: string;
 }
 
 export interface Agendamento {
   id: number;
-  dataHora: string;
+  dataAgenda: string;
   status?: string;
   observacoes?: string;
   doador?: { id?: number; nome?: string };

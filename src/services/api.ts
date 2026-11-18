@@ -37,7 +37,13 @@ async function request<T>(caminho: string, opcoes: RequestInit = {}): Promise<T>
   }
 
   const texto = await resposta.text();
-  return (texto ? JSON.parse(texto) : undefined) as T;
+  if (!texto) return undefined as T;
+
+  try {
+    return JSON.parse(texto) as T;
+  } catch {
+    return texto as unknown as T;
+  }
 }
 
 export const api = {
