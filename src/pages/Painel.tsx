@@ -124,8 +124,8 @@ export default function Painel() {
               ) : (
                 agendamentos.map((a) => (
                   <tr key={a.id}>
-                    <td>{a.doador?.nome ?? '—'}</td>
-                    <td>{(a.unidadeColeta ?? a.unidade)?.nome ?? '—'}</td>
+                   <td>{a.nomeDoador ?? '—'}</td>
+                   <td>{a.nomeUnidade ?? '—'}</td>
                     <td>{formatarData(a.dataAgenda)}</td>
                     <td>{a.status ?? '—'}</td>
                     <td>

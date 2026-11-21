@@ -11,6 +11,8 @@ export default function Header() {
         <NavLink to="/" end>Início</NavLink>
         <NavLink to="/porque-doar">Por que doar</NavLink>
         <NavLink to="/agendamento">Agendamento</NavLink>
+        <NavLink to="/doacao">Doação</NavLink>
+        <NavLink to="/estoque">Estoque</NavLink>
         <NavLink to="/painel">Painel</NavLink>
         <NavLink className="menu-destaque" to="/cadastro">Cadastro</NavLink>
       </nav>

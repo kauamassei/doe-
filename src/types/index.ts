@@ -34,6 +34,33 @@ export interface Agendamento {
   doador?: { id?: number; nome?: string };
   unidadeColeta?: { id?: number; nome?: string };
   unidade?: { id?: number; nome?: string };
+  nomeDoador?: string;
+  nomeUnidade?: string;
+}
+
+export interface NovaDoacao {
+  dataDoacao: string; // yyyy-MM-ddTHH:mm
+  volumeSanguineo: number; // mL
+  pressaoArterial: string; // ex.: 120/80
+  temperatura: number; // °C
+  hemoglobina: number; // g/dL
+  aptidao: boolean;
+}
+
+export interface Doacao extends NovaDoacao {
+  id: number;
+  agendamento?: { id?: number };
+}
+
+export interface NovoEstoque {
+  tipoSanguineo: string;
+  quantidadeMl: number;
+  capacidadeMl: number;
+}
+
+export interface Estoque extends NovoEstoque {
+  id: number;
+  unidadeColeta?: { id?: number; nome?: string };
 }
 
 export interface Mensagem {

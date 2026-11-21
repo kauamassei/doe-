@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import PorqueDoar from './pages/PorqueDoar';
 import Cadastro from './pages/Cadastro';
 import Agendamento from './pages/Agendamento';
+import Doacao from './pages/Doacao';
+import Estoque from './pages/Estoque';
 import Painel from './pages/Painel';
 
 export default function App() {
@@ -14,6 +16,8 @@ export default function App() {
         <Route path="/porque-doar" element={<PorqueDoar />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/agendamento" element={<Agendamento />} />
+        <Route path="/doacao" element={<Doacao />} />
+        <Route path="/estoque" element={<Estoque />} />
         <Route path="/painel" element={<Painel />} />
         <Route path="*" element={<Home />} />
       </Route>

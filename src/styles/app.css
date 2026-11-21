@@ -7,3 +7,35 @@
 }
 .botao-tabela:hover { background: var(--rosa-claro); }
 .botao:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+/* ===== Doação e Estoque ===== */
+.selo { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.selo.apto { background: #eaf7ee; color: #206b36; }
+.selo.inapto { background: #fff0f0; color: #9d1722; }
+.selo.neutro { background: var(--rosa); color: var(--vermelho-escuro); }
+
+.acoes-tabela { display: flex; flex-wrap: wrap; gap: 8px; }
+.botao-tabela.perigo { color: #9d1722; border-color: #ecc1c6; }
+.botao-tabela:disabled { opacity: .5; cursor: not-allowed; }
+
+.barra { height: 8px; min-width: 90px; border-radius: 999px; background: var(--rosa); overflow: hidden; }
+.barra-preenchimento { height: 100%; border-radius: 999px; background: var(--vermelho); }
+
+.cartoes-estoque { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+.cartao-estoque { display: flex; flex-direction: column; gap: 10px; }
+.cartao-estoque .cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cartao-estoque .tipo { color: var(--vinho); font-size: 1.9rem; font-weight: 800; line-height: 1; }
+.cartao-estoque .detalhe { font-size: .85rem; }
+
+.celula-nivel { display: flex; align-items: center; gap: 10px; min-width: 150px; }
+.celula-nivel .barra { flex: 1; }
+.celula-nivel span { font-size: .85rem; color: var(--texto-suave); min-width: 38px; text-align: right; }
+
+.filtro-unidade { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+
+@media (max-width: 800px) {
+  .cartoes-estoque { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .cartoes-estoque { grid-template-columns: 1fr; }
+}
