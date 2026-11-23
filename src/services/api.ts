@@ -1,11 +1,13 @@
-const BASE_URL: string = (import.meta.env.VITE_API_URL ?? 'http://localhost:8080').replace(/\/$/, '');
+const BASE_URL: string = (
+  import.meta.env.VITE_API_URL ?? "https://doe-1090.onrender.com"
+).replace(/\/$/, "");
 
 export class ApiError extends Error {
   status: number;
 
   constructor(message: string, status: number) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.status = status;
   }
 }
@@ -21,15 +23,24 @@ async function extrairMensagem(resposta: Response): Promise<string> {
   }
 }
 
-async function request<T>(caminho: string, opcoes: RequestInit = {}): Promise<T> {
+async function request<T>(
+  caminho: string,
+  opcoes: RequestInit = {},
+): Promise<T> {
   let resposta: Response;
   try {
     resposta = await fetch(`${BASE_URL}${caminho}`, {
       ...opcoes,
-      headers: { 'Content-Type': 'application/json', ...(opcoes.headers ?? {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(opcoes.headers ?? {}),
+      },
     });
   } catch {
-    throw new ApiError('Não foi possível conectar ao servidor. Verifique se o backend está rodando.', 0);
+    throw new ApiError(
+      "Não foi possível conectar ao servidor. Verifique se o backend está rodando.",
+      0,
+    );
   }
 
   if (!resposta.ok) {
@@ -49,8 +60,14 @@ async function request<T>(caminho: string, opcoes: RequestInit = {}): Promise<T>
 export const api = {
   get: <T>(caminho: string) => request<T>(caminho),
   post: <T>(caminho: string, corpo?: unknown) =>
-    request<T>(caminho, { method: 'POST', body: corpo === undefined ? undefined : JSON.stringify(corpo) }),
+    request<T>(caminho, {
+      method: "POST",
+      body: corpo === undefined ? undefined : JSON.stringify(corpo),
+    }),
   put: <T>(caminho: string, corpo?: unknown) =>
-    request<T>(caminho, { method: 'PUT', body: corpo === undefined ? undefined : JSON.stringify(corpo) }),
-  delete: <T>(caminho: string) => request<T>(caminho, { method: 'DELETE' }),
+    request<T>(caminho, {
+      method: "PUT",
+      body: corpo === undefined ? undefined : JSON.stringify(corpo),
+    }),
+  delete: <T>(caminho: string) => request<T>(caminho, { method: "DELETE" }),
 };
